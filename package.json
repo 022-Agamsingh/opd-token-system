@@ -1,0 +1,33 @@
+{
+  "name": "opd-token-allocation-engine",
+  "version": "1.0.0",
+  "description": "Hospital OPD Token Allocation System with Dynamic Capacity Management",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "simulate": "node src/simulation/opdSimulation.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "opd",
+    "hospital",
+    "token",
+    "allocation",
+    "queue-management"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "mongoose": "^9.1.5",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1"
+  }
+}

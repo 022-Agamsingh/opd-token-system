@@ -61,14 +61,58 @@ router.get('/doctor/:doctorId/available', asyncHandler(async (req, res) => {
   const { doctorId } = req.params;
   const { date } = req.query;
   
-  if (!date) {
-    return res.status(400).json({
-      success: false,
-      error: 'Date parameter is required',
-    });
-  }
-  
   const slots = await slotService.getAvailableSlots(doctorId, date);
+  
+  res.json({
+    success: true,
+    count: slots.length,
+    data: slots,
+  });
+}));
+
+/**
+ * @route   GET /api/slots/doctor/:doctorId/filled
+ * @desc    Get filled/full slots for a doctor
+ */
+router.get('/doctor/:doctorId/filled', asyncHandler(async (req, res) => {
+  const { doctorId } = req.params;
+  const { date } = req.query;
+  
+  const slots = await slotService.getFilledSlots(doctorId, date);
+  
+  res.json({
+    success: true,
+    count: slots.length,
+    data: slots,
+  });
+}));
+
+/**
+ * @route   GET /api/slots/doctor/:doctorId/booked
+ * @desc    Get booked slots (with any bookings) for a doctor
+ */
+router.get('/doctor/:doctorId/booked', asyncHandler(async (req, res) => {
+  const { doctorId } = req.params;
+  const { date } = req.query;
+  
+  const slots = await slotService.getBookedSlots(doctorId, date);
+  
+  res.json({
+    success: true,
+    count: slots.length,
+    data: slots,
+  });
+}));
+
+/**
+ * @route   GET /api/slots/doctor/:doctorId/empty
+ * @desc    Get empty slots (no bookings) for a doctor
+ */
+router.get('/doctor/:doctorId/empty', asyncHandler(async (req, res) => {
+  const { doctorId } = req.params;
+  const { date } = req.query;
+  
+  const slots = await slotService.getEmptySlots(doctorId, date);
   
   res.json({
     success: true,

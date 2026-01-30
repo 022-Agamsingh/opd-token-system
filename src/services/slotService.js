@@ -116,6 +116,30 @@ class SlotService {
   }
 
   /**
+   * Get filled slots (full slots only)
+   */
+  async getFilledSlots(doctorId, date) {
+    const slots = await this.getSlotsByDoctor(doctorId, date);
+    return slots.filter(slot => slot.isFull);
+  }
+
+  /**
+   * Get booked slots (slots with any bookings - partial or full)
+   */
+  async getBookedSlots(doctorId, date) {
+    const slots = await this.getSlotsByDoctor(doctorId, date);
+    return slots.filter(slot => slot.currentCount > 0);
+  }
+
+  /**
+   * Get empty slots (no bookings at all)
+   */
+  async getEmptySlots(doctorId, date) {
+    const slots = await this.getSlotsByDoctor(doctorId, date);
+    return slots.filter(slot => slot.currentCount === 0 && slot.status === 'ACTIVE');
+  }
+
+  /**
    * Check if slot has capacity
    */
   async hasCapacity(slotId) {
